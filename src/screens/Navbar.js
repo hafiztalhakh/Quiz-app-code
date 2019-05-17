@@ -30,7 +30,7 @@ class NavBar extends React.Component {
 
   renderJoinNow = () => {
     return (
-      <Button onClick={this.showRegisterForm} color="inherit">Join Now</Button>
+      <Button onClick={this.showRegisterForm} color="inherit">Sign up</Button>
     )
   }
 
@@ -72,7 +72,8 @@ class NavBar extends React.Component {
               <MenuIcon />
             </IconButton> */}
             <Typography variant="h6" color="default" className={classes.grow}>
-            {usr ? 'Welcome: ' + usr :  'Quiz App'}
+            {/* {usr ? 'Welcome: ' + usr :  'Quiz App'} */}
+            Quiz App
             </Typography>
             <span>
               {usrStatus ? this.renderLogout() : this.renderJoinNow()}

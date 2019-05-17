@@ -62,6 +62,11 @@ class Register extends React.Component {
                 dbRef.set({
                     Full_Name: name,
                     Email: userName,
+                    Courses: {
+                        HTML: 'null',
+                        CSS: 'null',
+                        JavaScript: 'null',
+                    }
 
                 }).then(() => {
                     // console.log("Message Saved");

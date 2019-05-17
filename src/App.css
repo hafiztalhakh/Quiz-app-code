@@ -9,18 +9,90 @@ background-repeat: no-repeat;
   width: 100%;
    background-size: cover; */
    background-color: #49c478;
-  min-height: 100vh;
+  min-height: 120vh;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-
-  justify-content: center;
+  /* justify-content: center; */
   /* font-size: calc(10px + 2vmin); */
+}
 
+.myFormDiv{
+  min-height: 120vh;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.inline-item{
+  display: inline;
+  /* margin-right: 20px; */
+}
+
+.box-quiz{
+  margin-top: 20px;
+  /* margin-left: 50px; */
+  /* text-align: center; */
+}
+
+.quiz-body{
+  margin-left: 50px;
+  color: white;
+  /* padding: 20px; */
+  /* float: right; */
+  width: 60%;
+}
+
+.panel-card{
+  color: black !important;
+  margin-top: 20px;
+}
+
+.myBtnQuiz1{
+  margin-top: 50px;
+  /* float: right; */
+  align-self: center;
+  /* margin-right: 50px; */
+}
+
+.quiz-menu{
+  background-color: white;
+  /* float: left; */
+  width: 20%;
+  padding: 10px;
+  min-height: 112vh;
+  /* justify-self: baseline; */
+  margin-bottom: -20px;
+  /* margin-right: 20px; */
+}
+
+.productkey-div{
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 100px;
+  color: white;
+  text-align: center;
+}
+
+.prdctBtn{
+  width:100%;
+  margin-top: 10px;
+  color: black;
+  background-color: white;    
+}
+
+.courseBtn{
+  float: right;
+  /* display: inline-block; */
 }
 
 .test{
-  background-color: blue;
+  /* background-color: blue; */
+  /* margin-left: 0px; */
+  /* margin-top: -200px; */
+  margin:20px;
 }
 
 .form-heading{
