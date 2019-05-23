@@ -4,7 +4,7 @@ import pic from './images/background.jpg';
 import './App.css';
 import Navbar from './screens/Navbar';
 import Register from './screens/Register';
-import firebase from 'firebase';
+import firebase from './config/Firebase';
 import Login from './screens/Login';
 import MenuScreen from './screens/Courses'
 import QuizScreen from './screens/QuizScreen';
@@ -14,32 +14,36 @@ class App extends React.Component {
   state = {
     userEmail: undefined,
     uID: 'null',
-    showLogin: true,
+    showLogin: false,
     showAdmin: false,
     userStatus: false,
     showRegisterationForm: false,
     showQuizComponent: false,
-    courseVar:null,
+    courseVar: null,
   }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-    let uId = 'null';
-    let uEmail = 'null';
+      let uId = 'null';
+      let uEmail = 'null';
       if (user) {
-       uId = firebase.auth().currentUser.uid;
-       uEmail = firebase.auth().currentUser.email;
+        uId = firebase.auth().currentUser.uid;
+        uEmail = firebase.auth().currentUser.email;
         this.setState({
           userEmail: uEmail,
           uID: uId,
           // showMenu: true,
         })
         this.loginTrue();
+      } else {
+        this.setState({
+          showLogin: true,
+        })
       }
       // console.log(this.state.uID);
     })
   }
-  
+
   registerForm = () => {
     this.setState({
       showRegisterationForm: true,
@@ -66,7 +70,7 @@ class App extends React.Component {
     // console.log("working");
   }
 
-  showQuizScreen = (course,check) =>{
+  showQuizScreen = (course, check) => {
     this.setState({
       showLogin: false,
       showMenu: false,
@@ -81,7 +85,7 @@ class App extends React.Component {
     const { showLogin, showMenu, userStatus, showRegisterationForm, showQuizComponent } = this.state;
     return (
       <React.Fragment>
-        <Navbar usrStatus={this.state.userStatus} logOutCheck={this.logOutTrue} regForm={this.registerForm} usr={this.state.userEmail}/>
+        <Navbar usrStatus={this.state.userStatus} logOutCheck={this.logOutTrue} regForm={this.registerForm} usr={this.state.userEmail} />
         <div className="body">
           {showLogin && <div className="myFormDiv">
             <Login loginTrue={this.loginTrue} />

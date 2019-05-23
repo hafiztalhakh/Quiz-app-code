@@ -55,6 +55,15 @@ background-repeat: no-repeat;
   /* margin-right: 50px; */
 }
 
+.quiz-info-display{
+  /* display: none; */
+}
+
+.quiz-continue-display{
+  display: hidden;
+  /* display: none; */
+}
+
 .quiz-menu{
   background-color: white;
   /* float: left; */

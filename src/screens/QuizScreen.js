@@ -14,7 +14,7 @@ class QuizScreen extends React.Component {
                     <Card.Header as="h5">Result</Card.Header>
                     <Card.Body>
                         <Card.Title>Quiz Title: HTML Quiz 1</Card.Title>
-                        <Card.Title>Correct Questions: 4 out of 4</Card.Title>
+                        <Card.Title>Correct Questions:4 out of 4</Card.Title>
                         <Card.Title>Marks: 100%</Card.Title>
                     </Card.Body>
                 </Card>
@@ -24,11 +24,16 @@ class QuizScreen extends React.Component {
 
     render() {
         const { usr, course } = this.props;
-        const quizArr = ['a'];
+        const quizArr = [];
 
         const testArr = [
             {
-                Quiz1:{
+                Quiz1: {
+                    result: {
+                        taken: true,
+                        marks: '100',
+                        correct_questions: '4',
+                    },
                     Q1: {
                         Q: 'HTML stands for: ',
                         choice1: 'Hyper Text Markup Language',
@@ -58,7 +63,7 @@ class QuizScreen extends React.Component {
                         choice4: 'Hello Fraandz CHaaye pee lo'
                     }
                 },
-                Quiz2:{
+                Quiz2: {
                     Q1: {
                         Q: 'HTML stands for: ',
                         choice1: 'Hyper Text Markup Language',
@@ -89,16 +94,20 @@ class QuizScreen extends React.Component {
                     }
                 }
             }
-        ]
-
+        ];
+        const x = testArr[0].Quiz1.result.taken;
+        // const quizArr = ['a'];
         const propertyRef = firebase.database().ref().child("Users").child(usr).child('Courses').child(course);
         propertyRef.once('value', val => {
             // console.log(val.val().Quiz);
             // quizArr.push('yes');
-            // quizArr.push(val.val().Quiz);
+            quizArr.push(val.val().Quiz);
             // console.log(quizArr);
         });
-        // console.log(quizArr);
+        setTimeout(() => {
+            console.log(quizArr);    
+        }, 100);
+        
         return (
             <React.Fragment>
                 <div className="box-quiz">
@@ -107,9 +116,13 @@ class QuizScreen extends React.Component {
                             <Card>
                                 <Card.Header as="h5">Quiz Title: </Card.Header>
                                 <Card.Body>
+                                    {/* <ListGroup>
+                                        <ListGroupItem><Card.Link href="#"></Card.Link></ListGroupItem>
+                                        <ListGroupItem><Card.Link href="#"></Card.Link></ListGroupItem>
+                                    </ListGroup> */}
                                     {
                                         quizArr.map((value, index) => {
-                                            console.log('test');
+                                            console.log(value.map(val2 => {console.log(val2)}));
                                             return (
                                                 <ListGroup key={index}>
                                                     <ListGroupItem><Card.Link href="#">{value}</Card.Link></ListGroupItem>
@@ -124,14 +137,14 @@ class QuizScreen extends React.Component {
                         <Col md={8} className="quiz-body">
                             <h3>Welcome to HTML Quiz</h3>
                             <br />
-                            <div className="">
+                            <div className="quiz-info-display">
                                 <p><b>Quiz Title: HTML Quiz 1</b></p>
                                 <p><b>Passing Score: 50%</b></p>
                                 <p><b>Quiz Duration: 7 Minutes</b></p>
                                 <p><b>Total Questions: 4</b></p>
                             </div>
                             <Row>
-                                <Col>
+                                <Col className="quiz-continue-display">
                                     <Button className="myBtnQuiz1">Continue</Button>
                                 </Col>
                                 <Col>
@@ -141,28 +154,18 @@ class QuizScreen extends React.Component {
                             </Row>
                             <br />
                             <br />
-                            <Row>
+                            {x && <Row>
                                 <Col md={8}>
                                     {this.resultComponent()}
                                 </Col>
-                            </Row>
+                            </Row>}
                         </Col>
                     </Row>
                     <br />
-                    {/* <Row><Col>{
-                        quizArr.map((value, index) => {
-                            console.log('test');
-                            return (
-                                <ul key={index}>
-                                    <li>{value}</li>
-                                </ul>
-                            )
-                        })
-                    }</Col></Row> */}
                 </div>
-                {/* {<QuizProductKeyComponent /> */}
+                {/* <QuizProductKeyComponent /> */}
                 {/* <QuizComponent /> */}
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }
