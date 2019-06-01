@@ -10,7 +10,6 @@ import QuizScreen from './QuizScreen';
 class MenuScreen extends React.Component {
 
     state = {
-        course:null,
         Joined_courses: false,
     }
 
@@ -22,11 +21,12 @@ class MenuScreen extends React.Component {
 
     quizInitiator = (course) => {
         const { uid } = this.props;
-        console.log(uid);
+        // console.log(uid);
         this.setState({
-            course:course,
-            Joined_courses:true,
+            course: course,
+            Joined_courses: true,
         });
+
         const dbRef = firebase.database().ref().child("Users").child(uid).child('Courses').child(course);
         dbRef.set({
             Joined: 'Yes',
@@ -67,48 +67,125 @@ class MenuScreen extends React.Component {
         }).then(() => {
             myAlert('hogya');
         });
-        // const propertyRef = firebase.database().ref().child("Users").child(usr).child('Courses').child(course);
-        // propertyRef.once('value', val => {
-        //     // console.log(val.val().Quiz);
-        //     const x = val.val().Joined;
-        //     // console.log(quizArr);
-        // });
-        // setTimeout(() => {
-        //     console.log(x);    
-        // }, 100);
     }
-
     render() {
+        const JoinedCoursesArr = [
+            {
+                Name: 'HTML',
+                Joined: 'Yes',
+                Taken: 'Yes',
+                Quiz: {
+                    Quiz1: {
+                        Q1: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q2: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q3: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q4: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        }
+                    }
+                }
+            },
+            {
+                Name: 'CSS',
+                Joined: 'Yes',
+                Taken: 'No',
+                Quiz: {
+                    Quiz1: {
+                        Q1: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q2: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q3: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q4: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        }
+                    }
+                }
+            },
+            {
+                Name: 'JavaScript',
+                Joined: 'No',
+                Taken: 'No',
+                Quiz: {
+                    Quiz1: {
+                        Q1: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q2: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q3: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q4: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        }
+                    }
+                }
+            },
+        ];
         const { usr, uid } = this.props;
-        const {Joined_courses} = this.state;
-        const JoinedCoursesArr = [];
-        let x;
-        let y;
-        let z;
-        const HTMLRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('HTML');
-        const CSSRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('CSS');
-        const JavaScriptRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('JavaScript');
-        HTMLRef.once('value', val => {
-            // console.log(val.val().Quiz);
-            x = val.val().Joined;
-            // console.log(quizArr);
-        });
-        CSSRef.once('value', val => {
-            // console.log(val.val().Quiz);
-             y = val.val().Joined;
-            // console.log(quizArr);
-        });
-        JavaScriptRef.once('value', val => {
-            // console.log(val.val().Quiz);
-             z = val.val().Joined;
-            // console.log(quizArr);
-        });
-        setTimeout(() => {
-            console.log(x);
-               JoinedCoursesArr.push(x,y,z);
-               console.log(JoinedCoursesArr);
-        }, 1000);
-        
+        const { Joined_courses } = this.state;
+        // const { uid } = this.props;
+        // console.log(this.JoinedCoursesArr);
         return (
             <React.Fragment>
                 {/* <Container className="test"> */}
@@ -128,8 +205,7 @@ class MenuScreen extends React.Component {
                         <Col md={5}>
                             <Card>
                                 <Card.Header as="h5">Joined Courses</Card.Header>
-                                <Card.Body className="display-none"><Card.Title>You have not join any courses yet</Card.Title></Card.Body>
-        {Joined_courses && <JoinedCourses course={this.state.course}/> }
+                                <JoinedCourses course={this.state.course} myarr={JoinedCoursesArr} quizloader={this.quizloader} uid={uid} />
                             </Card>
                         </Col>
                     </Row>
@@ -162,13 +238,34 @@ class MenuScreen extends React.Component {
 
 class JoinedCourses extends React.Component {
     render() {
-        const {course} = this.props;
-        return (
-            <Card.Body>
-                <Card.Title className="inline-item">{course}</Card.Title>
-                <Button onClick={() => this.quizloader("HTML")} className="courseBtn">Open</Button>
-            </Card.Body>
-        );
+        const { course, myarr, quizloader } = this.props;
+        console.log(myarr);
+        if (myarr[0].Joined != 'Yes') {
+            return (
+                <Card.Body className="display-none"><Card.Title>You have not join any courses yet</Card.Title></Card.Body>
+            )
+        }
+        else {
+
+            return (
+                <React.Fragment>
+                    {
+                        myarr.map((value, index) => {
+                            if (value.Joined === 'Yes') {
+                                return (<Card.Body key={index}>
+                                    <Card.Title className="inline-item">{value.Name}</Card.Title>
+                                    <Button onClick={() => quizloader("HTML")} className="courseBtn">Open</Button>
+                                </Card.Body>)
+                            }
+                        })
+                    }
+                </React.Fragment>
+                // <Card.Body>
+                //     <Card.Title className="inline-item">{course}</Card.Title>
+                //     <Button onClick={() => this.quizloader("HTML")} className="courseBtn">Open</Button>
+                // </Card.Body>
+            );
+        }
     }
 }
 

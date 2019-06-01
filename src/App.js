@@ -20,6 +20,7 @@ class App extends React.Component {
     showRegisterationForm: false,
     showQuizComponent: false,
     courseVar: null,
+    // myArr: null,
   }
 
   componentDidMount() {
@@ -74,11 +75,13 @@ class App extends React.Component {
     this.setState({
       showLogin: false,
       showMenu: false,
-      showQuizComponent: check,
+      showQuizComponent: true,
       userStatus: true,
       showRegisterationForm: false,
       courseVar: course,
+      // myArr: arr,
     })
+    console.log('test');
   }
 
   render() {

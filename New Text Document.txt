@@ -13,3 +13,279 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
   export default firebase;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+import firebase from '../config/Firebase';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { Card, Button } from 'react-bootstrap';
+import myAlert from 'sweetalert';
+import QuizScreen from './QuizScreen';
+
+const INITIAL_STATE = {
+    list: [1, 2, 3],
+};
+
+class MenuScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            course: null,
+            Joined_courses: false,
+            INITIAL_STATE,
+        }
+    }
+
+    onClearArray = () => {
+        this.setState({ list: [] });
+    };
+
+    onResetArray = () => {
+        this.setState({ ...INITIAL_STATE });
+    };
+
+    quizloader = (course) => {
+        console.log('working2');
+        const { quizScreen } = this.props;
+        quizScreen(course, 'true')
+    }
+
+    quizInitiator = (course) => {
+        const { uid } = this.props;
+        // console.log(uid);
+        this.setState({
+            course: course,
+            Joined_courses: true,
+        });
+
+        const dbRef = firebase.database().ref().child("Users").child(uid).child('Courses').child(course);
+        dbRef.set({
+            Joined: 'Yes',
+            Quiz: {
+                Quiz1: {
+                    Q1: {
+                        Q: 'HTML stands for: ',
+                        choice1: 'Hyper Text Markup Language',
+                        choice2: 'Hyper Text Markup Link',
+                        choice3: 'Hover Text Making Link',
+                        choice4: 'Hello Fraandz CHaaye pee lo'
+                    },
+                    Q2: {
+                        Q: 'HTML stands for: ',
+                        choice1: 'Hyper Text Markup Language',
+                        choice2: 'Hyper Text Markup Link',
+                        choice3: 'Hover Text Making Link',
+                        choice4: 'Hello Fraandz CHaaye pee lo'
+                    },
+                    Q3: {
+                        Q: 'HTML stands for: ',
+                        choice1: 'Hyper Text Markup Language',
+                        choice2: 'Hyper Text Markup Link',
+                        choice3: 'Hover Text Making Link',
+                        choice4: 'Hello Fraandz CHaaye pee lo'
+                    },
+                    Q4: {
+                        Q: 'HTML stands for: ',
+                        choice1: 'Hyper Text Markup Language',
+                        choice2: 'Hyper Text Markup Link',
+                        choice3: 'Hover Text Making Link',
+                        choice4: 'Hello Fraandz CHaaye pee lo'
+                    }
+                }
+
+            }
+
+        }).then(() => {
+            myAlert('hogya');
+        });
+        // const propertyRef = firebase.database().ref().child("Users").child(usr).child('Courses').child(course);
+        // propertyRef.once('value', val => {
+        //     // console.log(val.val().Quiz);
+        //     const x = val.val().Joined;
+        //     // console.log(quizArr);
+        // });
+        // setTimeout(() => {
+        //     console.log(x);    
+        // }, 100);
+
+        // return(
+        //     <JoinedCourses course={this.state.course} />
+        // )
+    }
+
+    yoman = (JoinedCoursesArr) => {
+       
+        const { usr, uid } = this.props;
+        const newRef = firebase.database().ref().child("Users").child(uid);
+        newRef.once('value', val => {
+            // console.log(val.val().Quiz);
+            console.log(val.val().Courses);
+            JoinedCoursesArr.push(val.val().Courses);
+            // console.log(quizArr);
+        });
+        console.log('chal ra hai');
+    }
+
+    render() {
+        const JoinedCoursesArr = ['hello'];
+        // setTimeout(()=>{
+        //     this.yoman(JoinedCoursesArr);
+        // },100)
+        this.yoman(JoinedCoursesArr);
+        const { usr, uid } = this.props;
+        const { Joined_courses } = this.state;
+        // const { uid } = this.props;
+        
+        let x;
+        let y;
+        let z;
+        // const HTMLRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('HTML');
+        // const CSSRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('CSS');
+        // const JavaScriptRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('JavaScript');
+        // newRef.on("value", val => {
+        //     val.forEach(val2 => {
+        //         console.log(val2.val());
+        //         // JoinedCoursesArr.push(val2)
+        //         // $("#data-user").append(`<label>USER: ${val2.val().User}</label>, <label>Feedback: </label><label>${val2.val().Feedback}</label><br/>`);
+        //     })
+        // })
+        
+        // JavaScriptRef.once('value', val => {
+        //     // console.log(val.val().Quiz);
+        //     z = val.val().Joined;
+        //     // console.log(quizArr);
+        // });
+        // setTimeout(() => {
+        //     console.log(x);
+        //     // JoinedCoursesArr.push(x, y, z);
+        //     console.log(JoinedCoursesArr);
+        // }, 100);
+        // const { course } = this.props;
+
+        return (
+            <React.Fragment>
+                {/* <Container className="test"> */}
+                <div className="test">
+                    <Row>
+                        <Col md={4}>
+                            <Card>
+                                <Card.Header as="h5">Logged in User</Card.Header>
+                                <Card.Body>
+                                    <Card.Title>Welcome: {usr} </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <Col md={5}>
+                            <Card>
+                                <Card.Header as="h5">Joined Courses</Card.Header>
+                                <Card.Body className="display-none"><Card.Title>You have not join any courses yet</Card.Title></Card.Body>
+                                {Joined_courses && <JoinedCourses course={this.state.course} myarr={JoinedCoursesArr} uid={uid} />}
+                            </Card>
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <Col md={12}>
+                            <Card>
+                                <Card.Header as="h5">Recomended Courses</Card.Header>
+                                <Card.Body>
+                                    <Card.Title className="inline-item">HTML</Card.Title>
+                                    <Button onClick={() => this.quizInitiator("HTML")} className="courseBtn">Join</Button>
+                                </Card.Body>
+                                <Card.Body>
+                                    <Card.Title className="inline-item">CSS</Card.Title>
+                                    <Button onClick={() => this.quizInitiator("CSS")} className="courseBtn">Join</Button>
+                                </Card.Body>
+                                <Card.Body>
+                                    <Card.Title className="inline-item">JavaScript</Card.Title>
+                                    <Button onClick={() => this.quizInitiator("JavaScript")} disabled className="courseBtn">Join</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                    {/* </Container> */}
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+class JoinedCourses extends React.Component {
+    render() {
+        console.log('render');
+        // const { uid } = this.props;
+        // const JoinedCoursesArr = ['hello'];
+        // let x;
+        // let y;
+        // let z;
+        // // const HTMLRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('HTML');
+        // // const CSSRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('CSS');
+        // // const JavaScriptRef = firebase.database().ref().child("Users").child(uid).child('Courses').child('JavaScript');
+        // const newRef = firebase.database().ref().child("Users").child(uid);
+        // // newRef.on("value", val => {
+        // //     val.forEach(val2 => {
+        // //         console.log(val2.val());
+        // //         // JoinedCoursesArr.push(val2)
+        // //         // $("#data-user").append(`<label>USER: ${val2.val().User}</label>, <label>Feedback: </label><label>${val2.val().Feedback}</label><br/>`);
+        // //     })
+        // // })
+        // newRef.once('value', val => {
+        //     // console.log(val.val().Quiz);
+        //     console.log(val.val().Courses);
+        //     JoinedCoursesArr.push(val.val().Courses);
+        //     // console.log(quizArr);
+        // });
+        // // JavaScriptRef.once('value', val => {
+        // //     // console.log(val.val().Quiz);
+        // //     z = val.val().Joined;
+        // //     // console.log(quizArr);
+        // // });
+        // setTimeout(() => {
+        //     console.log(x);
+        //     // JoinedCoursesArr.push(x, y, z);
+        //     console.log(JoinedCoursesArr);
+        // }, 100);
+        const { course, myarr } = this.props;
+        return (
+            <React.Fragment>
+                {myarr.map((value, index) => {
+                    console.log(value);
+                    return (<Card.Body key={index}>
+                        <Card.Title className="inline-item">{value}</Card.Title>
+                        <Button onClick={() => this.quizloader("HTML")} className="courseBtn">Open</Button>
+                    </Card.Body>)
+                })}
+            </React.Fragment>
+            // <Card.Body>
+            //     <Card.Title className="inline-item">{course}</Card.Title>
+            //     <Button onClick={() => this.quizloader("HTML")} className="courseBtn">Open</Button>
+            // </Card.Body>
+        );
+    }
+}
+
+export default MenuScreen;
+
+

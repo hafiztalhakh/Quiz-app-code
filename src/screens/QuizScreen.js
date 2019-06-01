@@ -7,107 +7,140 @@ import { Card, Button, ListGroup, ListGroupItem, Form, } from 'react-bootstrap'
 
 class QuizScreen extends React.Component {
 
-    resultComponent() {
-        return (
-            <React.Fragment>
-                <Card className="panel-card">
-                    <Card.Header as="h5">Result</Card.Header>
-                    <Card.Body>
-                        <Card.Title>Quiz Title: HTML Quiz 1</Card.Title>
-                        <Card.Title>Correct Questions:4 out of 4</Card.Title>
-                        <Card.Title>Marks: 100%</Card.Title>
-                    </Card.Body>
-                </Card>
-            </React.Fragment >
-        );
+    state = {
+        taken:false,
     }
 
     render() {
         const { usr, course } = this.props;
-        const quizArr = [];
 
-        const testArr = [
+        const {taken} =this.state;
+        const JoinedCoursesArr = [
             {
-                Quiz1: {
-                    result: {
-                        taken: true,
-                        marks: '100',
-                        correct_questions: '4',
-                    },
-                    Q1: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    },
-                    Q2: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    },
-                    Q3: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    },
-                    Q4: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    }
-                },
-                Quiz2: {
-                    Q1: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    },
-                    Q2: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    },
-                    Q3: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
-                    },
-                    Q4: {
-                        Q: 'HTML stands for: ',
-                        choice1: 'Hyper Text Markup Language',
-                        choice2: 'Hyper Text Markup Link',
-                        choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
+                Name: 'HTML',
+                Joined: 'Yes',
+                Taken: 'Yes',
+                Quiz: {
+                    Quiz1: {
+                        Q1: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q2: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q3: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q4: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        }
                     }
                 }
-            }
+            },
+            {
+                Name: 'CSS',
+                Joined: 'Yes',
+                Taken: 'No',
+                Quiz: {
+                    Quiz1: {
+                        Q1: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q2: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q3: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q4: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        }
+                    }
+                }
+            },
+            {
+                Name: 'JavaScript',
+                Joined: 'No',
+                Taken: 'No',
+                Quiz: {
+                    Quiz1: {
+                        Q1: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q2: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q3: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        },
+                        Q4: {
+                            Q: 'HTML stands for: ',
+                            choice1: 'Hyper Text Markup Language',
+                            choice2: 'Hyper Text Markup Link',
+                            choice3: 'Hover Text Making Link',
+                            choice4: 'Hello Fraandz CHaaye pee lo'
+                        }
+                    }
+                }
+            },
         ];
-        const x = testArr[0].Quiz1.result.taken;
-        // const quizArr = ['a'];
-        const propertyRef = firebase.database().ref().child("Users").child(usr).child('Courses').child(course);
-        propertyRef.once('value', val => {
-            // console.log(val.val().Quiz);
-            // quizArr.push('yes');
-            quizArr.push(val.val().Quiz);
-            // console.log(quizArr);
-        });
-        setTimeout(() => {
-            console.log(quizArr);    
-        }, 100);
-        
+
+        console.log(JoinedCoursesArr[0].Taken);
+        // let x = JoinedCoursesArr[0].Taken;
+        // if(JoinedCoursesArr[0].Taken != 'No'){
+        //     this.setState({
+        //         taken:true,
+        //     })
+        // }
+        // else{
+        //     this.setState({
+        //         taken:false,
+        //     })
+        // }
         return (
             <React.Fragment>
                 <div className="box-quiz">
@@ -116,21 +149,20 @@ class QuizScreen extends React.Component {
                             <Card>
                                 <Card.Header as="h5">Quiz Title: </Card.Header>
                                 <Card.Body>
-                                    {/* <ListGroup>
-                                        <ListGroupItem><Card.Link href="#"></Card.Link></ListGroupItem>
-                                        <ListGroupItem><Card.Link href="#"></Card.Link></ListGroupItem>
-                                    </ListGroup> */}
-                                    {
+                                    <ListGroup>
+                                        <ListGroupItem><Card.Link href="#">Quiz 1</Card.Link></ListGroupItem>
+                                        <ListGroupItem><Card.Link href="#">Quiz 2</Card.Link></ListGroupItem>
+                                    </ListGroup>
+                                    {/* {
                                         quizArr.map((value, index) => {
                                             console.log(value.map(val2 => {console.log(val2)}));
                                             return (
                                                 <ListGroup key={index}>
                                                     <ListGroupItem><Card.Link href="#">{value}</Card.Link></ListGroupItem>
-                                                    {/* <ListGroupItem><Card.Link href="#">{value}</Card.Link></ListGroupItem> */}
                                                 </ListGroup>
                                             )
                                         })
-                                    }
+                                    } */}
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -154,11 +186,12 @@ class QuizScreen extends React.Component {
                             </Row>
                             <br />
                             <br />
-                            {x && <Row>
+                            {taken && <Row>
                                 <Col md={8}>
-                                    {this.resultComponent()}
+                                    <ResultComponent/>
                                 </Col>
-                            </Row>}
+                            </Row>
+                        }
                         </Col>
                     </Row>
                     <br />
@@ -167,6 +200,23 @@ class QuizScreen extends React.Component {
                 {/* <QuizComponent /> */}
             </React.Fragment >
         )
+    }
+}
+
+class ResultComponent extends React.Component{
+    render() {
+        return (
+            <React.Fragment>
+                <Card className="panel-card">
+                    <Card.Header as="h5">Result</Card.Header>
+                    <Card.Body>
+                        <Card.Title>Quiz Title: HTML Quiz 1</Card.Title>
+                        <Card.Title>Correct Questions:4 out of 4</Card.Title>
+                        <Card.Title>Marks: 100%</Card.Title>
+                    </Card.Body>
+                </Card>
+            </React.Fragment >
+        );
     }
 }
 
