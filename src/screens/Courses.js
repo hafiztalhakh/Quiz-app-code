@@ -6,11 +6,23 @@ import Row from 'react-bootstrap/Row';
 import { Card, Button } from 'react-bootstrap';
 import myAlert from 'sweetalert';
 import QuizScreen from './QuizScreen';
+import { nfapply } from 'q';
 
 class MenuScreen extends React.Component {
 
+    // componentWillMount(){
+    //     const {uid} = this.props;
+    //     let myArrTest = [];
+    //     const fbRef = firebase.database().ref().child("Users").child(uid).child('Courses');
+    //     fbRef.once('value', val => {
+    //             // console.log(val.val().CSS)
+    //             // this.myArr2.push(val.val())
+    //         })
+    // }
+
     state = {
-        Joined_courses: false,
+        //         Joined_courses: false,
+        // reload : false,
     }
 
     quizloader = (course) => {
@@ -30,38 +42,95 @@ class MenuScreen extends React.Component {
         const dbRef = firebase.database().ref().child("Users").child(uid).child('Courses').child(course);
         dbRef.set({
             Joined: 'Yes',
+            Name: course,
+            taken: true,
             Quiz: {
                 Quiz1: {
+                    Title: 'Quiz 1',
+                    Duration: '10 Minutes',
+                    Passing: '50%',
+                    Total_Ques: '4',
                     Q1: {
                         Q: 'HTML stands for: ',
                         choice1: 'Hyper Text Markup Language',
                         choice2: 'Hyper Text Markup Link',
                         choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
+                        choice4: 'Hello Fraandz CHaaye pee lo',
+                        correct: 'Hyper Text Markup Language'
                     },
                     Q2: {
                         Q: 'HTML stands for: ',
                         choice1: 'Hyper Text Markup Language',
                         choice2: 'Hyper Text Markup Link',
                         choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
+                        choice4: 'Hello Fraandz CHaaye pee lo',
+                        correct: 'Hyper Text Markup Language'
                     },
                     Q3: {
                         Q: 'HTML stands for: ',
                         choice1: 'Hyper Text Markup Language',
                         choice2: 'Hyper Text Markup Link',
                         choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
+                        choice4: 'Hello Fraandz CHaaye pee lo',
+                        correct: 'Hyper Text Markup Language'
                     },
                     Q4: {
                         Q: 'HTML stands for: ',
                         choice1: 'Hyper Text Markup Language',
                         choice2: 'Hyper Text Markup Link',
                         choice3: 'Hover Text Making Link',
-                        choice4: 'Hello Fraandz CHaaye pee lo'
+                        choice4: 'Hello Fraandz CHaaye pee lo',
+                        correct: 'Hyper Text Markup Language'
+                    },
+                    result: {
+                        correct_ques: null,
+                        score: null,
                     }
+                },
+                Quiz2: {
+                  Title: 'Quiz 2',
+                  Duration: '15 Minutes',
+                  Passing: '60%',
+                  Total_Ques: '4',
+                  Q1: {
+                      Q: 'HTML stands for: ',
+                      choice1: 'Hyper Text Markup Language',
+                      choice2: 'Hyper Text Markup Link',
+                      choice3: 'Hover Text Making Link',
+                      choice4: 'Hello Fraandz CHaaye pee lo',
+                      correct: 'Hyper Text Markup Language'
+                  },
+                  Q2: {
+                      Q: 'HTML stands for: ',
+                      choice1: 'Hyper Text Markup Language',
+                      choice2: 'Hyper Text Markup Link',
+                      choice3: 'Hover Text Making Link',
+                      choice4: 'Hello Fraandz CHaaye pee lo',
+                      correct: 'Hyper Text Markup Language'
+                  },
+                  Q3: {
+                      Q: 'HTML stands for: ',
+                      choice1: 'Hyper Text Markup Language',
+                      choice2: 'Hyper Text Markup Link',
+                      choice3: 'Hover Text Making Link',
+                      choice4: 'Hello Fraandz CHaaye pee lo',
+  
+                      correct: 'Hyper Text Markup Language'
+                  },
+                  Q4: {
+                      Q: 'HTML stands for: ',
+                      choice1: 'Hyper Text Markup Language',
+                      choice2: 'Hyper Text Markup Link',
+                      choice3: 'Hover Text Making Link',
+                      choice4: 'Hello Fraandz CHaaye pee lo',
+                      correct: 'Hyper Text Markup Language'
+                  },
+                  result: {
+                    correct_ques: null,
+                    score: null,
                 }
-
+              }
+  
             }
 
         }).then(() => {
@@ -69,123 +138,9 @@ class MenuScreen extends React.Component {
         });
     }
     render() {
-        const JoinedCoursesArr = [
-            {
-                Name: 'HTML',
-                Joined: 'Yes',
-                Taken: 'Yes',
-                Quiz: {
-                    Quiz1: {
-                        Q1: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q2: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q3: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q4: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        }
-                    }
-                }
-            },
-            {
-                Name: 'CSS',
-                Joined: 'Yes',
-                Taken: 'No',
-                Quiz: {
-                    Quiz1: {
-                        Q1: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q2: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q3: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q4: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        }
-                    }
-                }
-            },
-            {
-                Name: 'JavaScript',
-                Joined: 'No',
-                Taken: 'No',
-                Quiz: {
-                    Quiz1: {
-                        Q1: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q2: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q3: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q4: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        }
-                    }
-                }
-            },
-        ];
-        const { usr, uid } = this.props;
-        const { Joined_courses } = this.state;
-        // const { uid } = this.props;
-        // console.log(this.JoinedCoursesArr);
+
+        const { usr, uid, arr } = this.props;
+        console.log(arr);
         return (
             <React.Fragment>
                 {/* <Container className="test"> */}
@@ -205,7 +160,7 @@ class MenuScreen extends React.Component {
                         <Col md={5}>
                             <Card>
                                 <Card.Header as="h5">Joined Courses</Card.Header>
-                                <JoinedCourses course={this.state.course} myarr={JoinedCoursesArr} quizloader={this.quizloader} uid={uid} />
+                                <JoinedCourses course={this.state.course} quizArr={arr} quizloader={this.quizloader} />
                             </Card>
                         </Col>
                     </Row>
@@ -238,34 +193,30 @@ class MenuScreen extends React.Component {
 
 class JoinedCourses extends React.Component {
     render() {
-        const { course, myarr, quizloader } = this.props;
-        console.log(myarr);
-        if (myarr[0].Joined != 'Yes') {
-            return (
-                <Card.Body className="display-none"><Card.Title>You have not join any courses yet</Card.Title></Card.Body>
-            )
-        }
-        else {
+        const { quizArr, quizloader } = this.props;
+        const myArr2 = quizArr;
+        console.log(myArr2[1]);
+        const hello = [
+        ]
+        return (
+            <React.Fragment>
+                {
+                    quizArr.map((value, index) => {
+                        return (
+                            <Card.Body key={index}>
+                                <Card.Title className="inline-item">{value.Name}</Card.Title>
+                                <Button onClick={() => quizloader("CSS")} className="courseBtn">Open</Button>
+                            </Card.Body>)
+                    })
+                }
+                <h1>hello</h1>
+            </React.Fragment>
+            // <Card.Body>
+            //     <Card.Title className="inline-item">{course}</Card.Title>
+            //     <Button onClick={() => this.quizloader("HTML")} className="courseBtn">Open</Button>
+            // </Card.Body>
+        );
 
-            return (
-                <React.Fragment>
-                    {
-                        myarr.map((value, index) => {
-                            if (value.Joined === 'Yes') {
-                                return (<Card.Body key={index}>
-                                    <Card.Title className="inline-item">{value.Name}</Card.Title>
-                                    <Button onClick={() => quizloader("HTML")} className="courseBtn">Open</Button>
-                                </Card.Body>)
-                            }
-                        })
-                    }
-                </React.Fragment>
-                // <Card.Body>
-                //     <Card.Title className="inline-item">{course}</Card.Title>
-                //     <Button onClick={() => this.quizloader("HTML")} className="courseBtn">Open</Button>
-                // </Card.Body>
-            );
-        }
     }
 }
 

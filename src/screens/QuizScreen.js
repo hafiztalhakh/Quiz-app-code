@@ -3,207 +3,120 @@ import firebase from '../config/Firebase';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import myAlert from 'sweetalert';
 import { Card, Button, ListGroup, ListGroupItem, Form, } from 'react-bootstrap'
 
 class QuizScreen extends React.Component {
 
     state = {
-        taken:false,
+        takenCheck: false,
+        showQuizDetals: false,
+        showQuizDetailsPage: true,
+        showQuizKeyComponentCheck: false,
+        showQuizComponent: false,
+    }
+
+    showQuizKeyComponent = () => {
+        this.setState({
+            showQuizKeyComponentCheck: true,
+            showQuizDetailsPage: false,
+        })
+        console.log("testing 111");
+    }
+
+    startQuiz = () => {
+        const { usr, course, arr } = this.props;
+    }
+
+    showQuiz = () => {
+        const { usr, course, arr } = this.props;
+        let taken = arr[0].taken;
+        if (taken === 'Yes') {
+            this.setState({
+                showQuizDetals: true,
+                takenCheck: true,
+            });
+        }
+        else {
+            this.setState({
+                showQuizDetals: true,
+            });
+        }
+    }
+
+    checkKeyFunc = (val1) => {
+        this.setState({
+            showQuizComponent: val1,
+            showQuizKeyComponentCheck : false
+        })
     }
 
     render() {
-        const { usr, course } = this.props;
 
-        const {taken} =this.state;
-        const JoinedCoursesArr = [
-            {
-                Name: 'HTML',
-                Joined: 'Yes',
-                Taken: 'Yes',
-                Quiz: {
-                    Quiz1: {
-                        Q1: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q2: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q3: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q4: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        }
-                    }
-                }
-            },
-            {
-                Name: 'CSS',
-                Joined: 'Yes',
-                Taken: 'No',
-                Quiz: {
-                    Quiz1: {
-                        Q1: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q2: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q3: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q4: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        }
-                    }
-                }
-            },
-            {
-                Name: 'JavaScript',
-                Joined: 'No',
-                Taken: 'No',
-                Quiz: {
-                    Quiz1: {
-                        Q1: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q2: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q3: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        },
-                        Q4: {
-                            Q: 'HTML stands for: ',
-                            choice1: 'Hyper Text Markup Language',
-                            choice2: 'Hyper Text Markup Link',
-                            choice3: 'Hover Text Making Link',
-                            choice4: 'Hello Fraandz CHaaye pee lo'
-                        }
-                    }
-                }
-            },
-        ];
+        const { usr, course, arr } = this.props;
+        // let taken = arr[0].taken;
+        const { takenCheck, showQuizDetals, showQuizKeyComponentCheck, showQuizDetailsPage, showQuizComponent } = this.state;
+        // console.log(arr[0].taken);
 
-        console.log(JoinedCoursesArr[0].Taken);
-        // let x = JoinedCoursesArr[0].Taken;
-        // if(JoinedCoursesArr[0].Taken != 'No'){
-        //     this.setState({
-        //         taken:true,
-        //     })
-        // }
-        // else{
-        //     this.setState({
-        //         taken:false,
-        //     })
-        // }
         return (
             <React.Fragment>
-                <div className="box-quiz">
-                    <Row>
-                        <Col md={3} className="quiz-menu">
-                            <Card>
-                                <Card.Header as="h5">Quiz Title: </Card.Header>
-                                <Card.Body>
-                                    <ListGroup>
-                                        <ListGroupItem><Card.Link href="#">Quiz 1</Card.Link></ListGroupItem>
-                                        <ListGroupItem><Card.Link href="#">Quiz 2</Card.Link></ListGroupItem>
-                                    </ListGroup>
-                                    {/* {
-                                        quizArr.map((value, index) => {
-                                            console.log(value.map(val2 => {console.log(val2)}));
-                                            return (
-                                                <ListGroup key={index}>
-                                                    <ListGroupItem><Card.Link href="#">{value}</Card.Link></ListGroupItem>
-                                                </ListGroup>
-                                            )
-                                        })
-                                    } */}
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={8} className="quiz-body">
-                            <h3>Welcome to HTML Quiz</h3>
-                            <br />
-                            <div className="quiz-info-display">
-                                <p><b>Quiz Title: HTML Quiz 1</b></p>
-                                <p><b>Passing Score: 50%</b></p>
-                                <p><b>Quiz Duration: 7 Minutes</b></p>
-                                <p><b>Total Questions: 4</b></p>
-                            </div>
-                            <Row>
-                                <Col className="quiz-continue-display">
-                                    <Button className="myBtnQuiz1">Continue</Button>
-                                </Col>
-                                <Col>
+                {
+                    showQuizDetailsPage && <div className="box-quiz">
+                        <Row>
+                            <Col md={3} className="quiz-menu">
+                                <Card>
+                                    <Card.Header as="h5">Quiz Title: </Card.Header>
+                                    <Card.Body>
+                                        <ListGroup>
+                                            <ListGroupItem><Card.Link href="#" onClick={this.showQuiz}>Quiz 1</Card.Link></ListGroupItem>
+                                            <ListGroupItem><Card.Link href="#" onClick={this.showQuiz}>Quiz 2</Card.Link></ListGroupItem>
+                                        </ListGroup>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col md={8} className="quiz-body">
+                                <h3>Welcome to HTML Quiz</h3>
+                                <br />
+                                {
+                                    showQuizDetals && <div className="quiz-info-display">
+                                        <p><b>Quiz Title: HTML Quiz 1</b></p>
+                                        <p><b>Passing Score: 50%</b></p>
+                                        <p><b>Quiz Duration: 7 Minutes</b></p>
+                                        <p><b>Total Questions: 4</b></p>
+                                    </div>
+                                }
+                                <Row>
+                                    {
+                                        showQuizDetals && <Col className="quiz-continue-display">
+                                            <Button className="myBtnQuiz1" onClick={this.showQuizKeyComponent}>Continue</Button>
+                                        </Col>
+                                    }
+                                    <Col>
 
-                                    <Button className="myBtnQuiz1">Back</Button>
-                                </Col>
-                            </Row>
-                            <br />
-                            <br />
-                            {taken && <Row>
-                                <Col md={8}>
-                                    <ResultComponent/>
-                                </Col>
-                            </Row>
-                        }
-                        </Col>
-                    </Row>
-                    <br />
-                </div>
-                {/* <QuizProductKeyComponent /> */}
-                {/* <QuizComponent /> */}
+                                        <Button className="myBtnQuiz1">Back</Button>
+                                    </Col>
+                                </Row>
+                                <br />
+                                <br />
+                                {takenCheck && <Row>
+                                    <Col md={8}>
+                                        <ResultComponent />
+                                    </Col>
+                                </Row>
+                                }
+                            </Col>
+                        </Row>
+                        <br />
+                    </div>}
+                {showQuizKeyComponentCheck && <QuizProductKeyComponent checkKeyFunc={this.checkKeyFunc} />}
+                {showQuizComponent && <QuizComponent />
+                }
             </React.Fragment >
         )
     }
 }
 
-class ResultComponent extends React.Component{
+class ResultComponent extends React.Component {
     render() {
         return (
             <React.Fragment>
@@ -221,6 +134,27 @@ class ResultComponent extends React.Component{
 }
 
 class QuizProductKeyComponent extends React.Component {
+
+    state = {
+        key: undefined,
+    }
+
+    checkKey = () => {
+        const { checkKeyFunc } = this.props;
+        const { key } = this.state;
+        if (key === '12345') {
+            checkKeyFunc('ture');
+        } else {
+            myAlert('The Key is Invalid');
+        }
+    }
+
+    handle = event => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -232,14 +166,14 @@ class QuizProductKeyComponent extends React.Component {
                                 <h5>Quiz Title: HTML Quiz 1</h5>
                                 <br />
                                 <Form>
-                                    <Form.Control type="password" placeholder="Enter Product Key" />
+                                    <Form.Control type="password" name="key" onChange={this.handle} placeholder="Enter Product Key" />
                                 </Form>
                                 <Row>
                                     <Col md={6}>
-                                        <Button className="prdctBtn">Next</Button>
+                                        <Button className="prdctBtn" onClick={this.checkKey}>Next</Button>
                                     </Col>
                                     <Col md={6}>
-                                        <Button className="prdctBtn">Back</Button>
+                                        <Button className="prdctBtn" onClick={this.backToQuizDetailsPage}>Back</Button>
                                     </Col>
                                 </Row>
                             </div>
